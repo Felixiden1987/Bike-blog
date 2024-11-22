@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1','.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','.herokuapp.com', '8000-felixiden1987-bikeblog-k5suc4lgcwf.ws.codeinstitute-ide.net']
 
 
 # Application definition
@@ -85,25 +85,28 @@ WSGI_APPLICATION = 'codestar.wsgi.application'
 #        'ENGINE': 'django.db.backends.sqlite3',
 #        'NAME': BASE_DIR / 'db.sqlite3',
 #    }
-#}
+# }
+if 'DATABASE_URL' in os.environ:
+    print("using online")
+    DATABASES = {
+    
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL")),
+    #'OPTIONS': {
+        #'sslmode': 'require',
+       # 'options': '?options=endpoint%3Dep-winter-glitter',
+    #    }
+}
 #DATABASES = {
-#    'default': dj_database_url.parse(os.environ.get("DATABASE_URL")),
-#    'OPTIONS': {
-#        'sslmode': 'require',
-#        'options': '?options=endpoint%3Dep-gentle-mountain',
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'walk_voice_found_215072',
+#        'USER': 'neondb_owner',
+#        'PASSWORD': '2rs4wiolMGpE',
+#        'HOST': 'ep-winter-glitter-a28rawq0.eu-central-1.aws.neon.tech',  
+#        'PORT': '5432',  # or whatever port you're using
+#        
 #    }
 #}
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'palm_july_sushi_704400',
-        'USER': 'utb9vdqlu3o',
-        'PASSWORD': 'dTNLyU2k9sO0',
-        'HOST': 'ep-gentle-mountain-a23bxz6h-pooler.eu-central-1.aws.neon.tech',  
-        'PORT': '5432',  # or whatever port you're using
-        
-    }
-}
 
 CSRF_TRUSTED_ORIGINS = [
     "https://*.codeinstitute-ide.net/",
