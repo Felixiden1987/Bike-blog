@@ -1,6 +1,6 @@
 [
     {
-        "model": "blog.post",
+        "model": "bikeblog.post",
         "pk": null,
         "fields": {
             "title": "Breakpoints or Breaking Point? Surviving JavaScript Debugging",
