@@ -7,6 +7,10 @@ STATUS = ((0, "Draft"), (1, "Published"))
 
 
 class Post(models.Model):
+    """
+    Stores a single blog post entry related to :model:`auth.User`.
+    and :model:`bikeblog.Post`
+    """
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="blog_posts")
