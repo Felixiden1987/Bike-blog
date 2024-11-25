@@ -46,6 +46,15 @@ body {
     background-color: #188181;
 }
 
+.username {
+    background-color: #188181;
+    min-width: 30%;
+    max-width: 50%;
+    font-size: x-large;
+    color: #fff;
+    text-align: center;
+}
+
 .scale {
     width: 100%;
     height: auto;
@@ -89,6 +98,10 @@ body {
     -moz-transform: skew(15deg);
     transform: skew(15deg);
     z-index: 100;
+}
+
+.profile.image {
+    width: 75%;
 }
 
 .post-link {
