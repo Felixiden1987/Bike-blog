@@ -28,29 +28,32 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 card mb-4  mt-3 ">
-                
-                    <div class="username">{{ user.username }}'s Profile</div>
+
+                <div class="username">{{ user.username }}'s Profile</div>
 
 
 
 
-                    <h3>Comments</h3>
-                    {% for comment in comments %}
-                    <div>
-                        <p><strong>{{ comment.author.username }}:</strong> {{ comment.body }}</p>
-                        <small>Commented on: {{ comment.created_on }}</small>
-                        <p>{{ comment.content }} (on: {{ comment.post.title }})</p>
-                    </div>
-                    {% empty %}
-                    <p>No comments yet.</p>
-                    {% endfor %}
-                    <form method="post" action="/accounts/logout/">
-                        <input type="hidden" name="csrfmiddlewaretoken"
-                            value="0fpu2mTCjW1pViUUFToQXbz3wuM8OD8Rsj2aDwpCAGQHtZMEGSWF4BKT2etdpfHg">
+                <h3>Comments</h3>
+                {% for comment in comments %}
+                <div>
+                    <p><strong>{{ comment.author.username }}:</strong> {{ comment.body }}</p>
+                    <small>Commented on: {{ comment.created_on }}</small>
+                    <p>
+                        {{ comment.content }}
+                        (on: <a href="{% url 'post_detail' comment.post.slug %}">{{ comment.post.title }}</a>)
+                    </p>
+                </div>
+                {% empty %}
+                <p>No comments yet.</p>
+                {% endfor %}
+                <form method="post" action="/accounts/logout/">
+                    <input type="hidden" name="csrfmiddlewaretoken"
+                        value="0fpu2mTCjW1pViUUFToQXbz3wuM8OD8Rsj2aDwpCAGQHtZMEGSWF4BKT2etdpfHg">
 
-                        <button class="btn btn-signup right" type="submit">Sign Out</button>
-                    </form>
-               
+                    <button class="btn btn-signup right" type="submit">Sign Out</button>
+                </form>
+
             </div>
         </div>
     </div>
