@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import sys
 from django.contrib.messages import constants as messages
 import dj_database_url
 if os.path.isfile('env.py'):
@@ -53,6 +54,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'bikeblog',
     'about',
+    'profiles',
     
 ]
 
@@ -115,6 +117,8 @@ if 'DATABASE_URL' in os.environ:
        # 'options': '?options=endpoint%3Dep-winter-glitter',
     #    }
 }
+if 'test' in sys.argv:
+    DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
 #DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.postgresql',
