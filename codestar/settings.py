@@ -101,35 +101,17 @@ WSGI_APPLICATION = 'codestar.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-# }
+
 if 'DATABASE_URL' in os.environ:
     print("using online")
     DATABASES = {
     
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL")),
-    #'OPTIONS': {
-        #'sslmode': 'require',
-       # 'options': '?options=endpoint%3Dep-winter-glitter',
-    #    }
+  
 }
 if 'test' in sys.argv:
     DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': 'walk_voice_found_215072',
-#        'USER': 'neondb_owner',
-#        'PASSWORD': '2rs4wiolMGpE',
-#        'HOST': 'ep-winter-glitter-a28rawq0.eu-central-1.aws.neon.tech',  
-#        'PORT': '5432',  # or whatever port you're using
-#        
-#    }
-#}
+
 
 CSRF_TRUSTED_ORIGINS = [
     "https://*.codeinstitute-ide.net/",
