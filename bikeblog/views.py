@@ -6,17 +6,19 @@ from .models import Post, Comment
 from .forms import CommentForm
 
 # Create your views here.
+
+
 class PostList(generic.ListView):
     """
     Returns all published posts in :model:`blog.Post`
-    and displays them in a page of six posts. 
+    and displays them in a page of six posts.
     **Context**
 
     ``queryset``
         All published instances of :model:`blog.Post`
     ``paginate_by``
         Number of posts per page.
-        
+
     **Template:**
 
     :template:`blog/index.html`
@@ -24,6 +26,7 @@ class PostList(generic.ListView):
     queryset = Post.objects.filter(status=1)
     template_name = "bikeblog/index.html"
     paginate_by = 6
+
 
 def post_detail(request, slug):
     """
@@ -35,10 +38,10 @@ def post_detail(request, slug):
         An instance of :model:`bikeblog.Post`.
     ``comments``
         All approved comments related to the post.
-    ``comment_count``    
-        A count of approved comments related to the post.
+    ``comment_count``
+    A count of approved comments related to the post.
     ``comment_form``
-        An instance of :form:`bikeblog.CommentFrom`    
+    An instance of :form:`bikeblog.CommentFrom`
     **Template:**
 
     :template:`bikeblog/post_detail.html`
@@ -60,8 +63,7 @@ def post_detail(request, slug):
                 'Comment submitted and awaiting approval'
             )
 
-
-    comment_form = CommentForm()
+            comment_form = CommentForm()
 
     return render(
         request,
@@ -73,18 +75,20 @@ def post_detail(request, slug):
             "comment_form": comment_form,
         },
     )
+
+
 def comment_edit(request, slug, comment_id):
     """
     Displays an individual comment for edit.
 
-    **context** 
+    **context**
 
     ``post``
         An instance of :model:`bikeblog.Post`.
     ``comment``
-        A single comment related to the post. 
+        A single comment related to the post.
     ``comment_form``
-        An instance of :form:`bikeblog.Comment.Post`.      
+    An instance of :form:`bikeblog.Comment.Post`.
     """
     if request.method == "POST":
 
@@ -100,9 +104,10 @@ def comment_edit(request, slug, comment_id):
             comment.save()
             messages.add_message(request, messages.SUCCESS, 'Comment Updated!')
         else:
-            messages.add_message(request, messages.ERROR, 'Error updating comment!')
+            messages.add_message(request, messages.ERROR, 'Error upd comment!')
 
     return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+
 
 def comment_delete(request, slug, comment_id):
     """
@@ -112,8 +117,8 @@ def comment_delete(request, slug, comment_id):
 
     ``post```
         An instance of :model:`bikeblog.Post`.
-    ``comment`` 
-        A single comment related to the post.    
+    ``comment``
+        A single comment related to the post.
     """
     queryset = Post.objects.filter(status=1)
     post = get_object_or_404(queryset, slug=slug)
@@ -121,8 +126,10 @@ def comment_delete(request, slug, comment_id):
 
     if comment.author == request.user:
         comment.delete()
-        messages.add_message(request, messages.SUCCESS, 'Comment deleted!')
+        message_text = 'Comment deleted!'
+        messages.add_message(request, messages.SUCCESS, message_text)
     else:
-        messages.add_message(request, messages.ERROR, 'You can only delete your own comments!')
+        error_message = 'You can only delete your own comments!'
+        messages.add_message(request, messages.ERROR, error_message)
 
     return HttpResponseRedirect(reverse('post_detail', args=[slug]))
