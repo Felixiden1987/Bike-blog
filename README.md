@@ -1,131 +1,285 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Bikeblog App
 
-Welcome Felix Idén,
+## Screenshot of finished project responsivness
+![Mockup](static/img/readme/mockup.png)
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+> This is a simple app that allows users to read blogposts with relations to mountainbike.
+> The user can create a username and log in to make comments on posts. 
 
-You can safely delete this README.md file or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **June 18, 2024**
+# Live App
+[Bikeblog](https://bike-blog-9220ce15bd18.herokuapp.com/)
 
-## Gitpod Reminders
+## Table of Contents
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+<a name="contents">Back to top</a>
 
-`python3 -m http.server`
+1. [UX](#ux)
+2. [User Demographic](#user-demographic)
+3. [Design](#design)
+4. [User Stories](#user-stories)
+5. [Database Schema](#database-schema)
+6. [Features](#features)
+7. [Existing Features](#existing-features)
+8. [Features Left to Implement](#features-left-to-implement)
+9. [Technologies Used](#technologies)
+10. [Agile Development](#agile-development)
+11. [Testing](#testing)
+12. [Bug](#bugs)
+13. [Deployment](#deployment)
+14. [Credits](#credits)
 
-A blue button should appear to click: _Make Public_,
+## UX
+<a name="ux"></a>
 
-Another blue button should appear to click: _Open Browser_.
+### User Demographic
+<a name="user-demographic"></a>
+This application is designed for user who want's to read blogposts about mountainbiking. 
+The app is designed to be used on a mobile device.
 
-To run a backend Python file, type `python3 app.py` if your Python file is named `app.py`, of course.
 
-A blue button should appear to click: _Make Public_,
+### Design
+<a name="design"></a>
 
-Another blue button should appear to click: _Open Browser_.
+- Color Palette
 
-By Default, Gitpod gives you superuser security privileges. Therefore, you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+  
+- Typography
 
-To log into the Heroku toolbelt CLI:
+  The typography choices reflect clarity and contemporary design, featuring:
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+  Lato & sans-serif as fallback.
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you, so do not share it. If you accidentally make it public, you can create a new one with _Regenerate API Key_.
+### User Stories
+<a name="user-stories"></a>
+User stories can be found in the github projects board.
+[User Stories](https://github.com/users/Felixiden1987/projects/)
 
-### Connecting your Mongo database
+### Database Schema
+<a name="database-schema"></a>
+![Database Schema]()
 
-- **Connect to Mongo CLI on a IDE**
-- navigate to your MongoDB Clusters Sandbox
-- click **"Connect"** button
-- select **"Connect with the MongoDB shell"**
-- select **"I have the mongo shell installed"**
-- choose **mongosh (2.0 or later)** for : **"Select your mongo shell version"**
-- choose option: **"Run your connection string in your command line"**
-- in the terminal, paste the copied code `mongo "mongodb+srv://<CLUSTER-NAME>.mongodb.net/<DBname>" --apiVersion 1 --username <USERNAME>`
-  - replace all `<angle-bracket>` keys with your own data
-- enter password _(will not echo **\*\*\*\*** on screen)_
 
-------
+#### Post Model
 
-## Release History
+| id            | Field         |
+| ------------- | ------------- |
+| title         | CharField     |
+| slug          | SlugField     |
+| author        | ForeignKey    |
+| featured_image|CloudinaryField| 
+| content       | TextField     |
+| created_on    | DateTimeField | 
+| status        | Integer       |
+| updated_on    | DateTimeField |
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+#### Profile Model
 
-**June 18, 2024,** Add Mongo back into template
+| id          | Field                |
+| ----------- | -------------------- |
+| post        | get_object_or_404    |
+| comments    | post.comments.filter |
 
-**June 14, 2024,** Temporarily remove Mongo until the key issue is resolved
+#### Comment Model
 
-**May 28 2024:** Fix Mongo and Links installs
+| id                    | Field         |
+| --------------------- | ------------- |
+| post                  | ForeignKey    |
+| author                | ForeignKey    |
+| body                  | TextField     |
+| created_on            | DateTimeField |
+| approved              | BooleanField  |
 
-**April 26 2024:** Update node version to 16
+#### About Model
 
-**September 20 2023:** Update Python version to 3.9.17.
+| id            | Field         |
+| ------------- | ------------- |
+| title         | Charfield     |
+| profile_image |CloudinaryField|
+| updated_on    | DateTimeField |
+| content       | TextField     |
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
+#### CollaborateRequest Model
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+| id            | Field         |
+| ------------- | ------------- |
+| name          | CharField     |
+| email         | EmailField    |
+| message       | TextField     |
+| read          | BooleanField  |
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
+## Features
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
+<a name="features"></a>
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+### Existing Features
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+<a name="existing-features"></a>
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+Landing Page, user can read blogposts and about page, user can also register or login.
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+![Landing Page](static/img/readme/landingpage.png)
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+Register page, user can register with their username, email address, password and confirm password.
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
+![Register](static/img/readme/signup.png)
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
+Login page, user can login with their username and password.
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
+![Login](static/img/readme/signin.png)
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
+View Profile, user can view their comments.
 
-------
+![View Profile](static/img/readme/profilecomments.png)
 
-## FAQ about the uptime script
+### Features Left to Implement
+<a name="features-left-to-implement"></a>
 
-**Why have you added this script?**
 
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
 
-**How will this affect me?**
+## Technologies Used
+<a name="technologies"></a>
+Languages Used
 
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
+- HTML5
 
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
+- CSS3
 
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
+- JavaScript
 
-**So….?**
+- Python
 
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
+Frameworks, Libraries & Programs Used
 
-**Can I opt out?**
+- Django:
 
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
+  - The Django web framework was used to create the full-stack web application.
 
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
+- PostgreSQL:
 
-**Anything more?**
+  - PostgreSQL was used as database system.
 
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
+- Git:
 
----
+  - Git was used for version control by utilizing the Gitpod terminal to commit to Git and Push to GitHub.
 
-Happy coding!
+- GitHub:
+
+  - GitHub is used to store the projects code after being pushed from Git.
+
+- Heroku:
+
+  - Heroku was used for the deployed application.
+
+- Gunicorn
+
+  - A Python WSGI HTTP server for UNIX, used to run Python web applications.
+
+- DJ-Database-URL
+
+  - A utility to help you load your database into your dictionary from the DATABASE_URL environment variable.
+
+- PEP 8
+
+  - A tool to check Python code against some of the style conventions in PEP 8.
+
+
+## Agile Development
+<a name="agile-development"></a>
+https://github.com/users/Felixiden1987/projects/
+
+Github projects was used for the agile development of this project. The purpose for this was to layout the tasks that needed to be completed and to track the progress of the project. All user stories can be found in the github projects board.
+
+## Testing
+<a name="testing"></a>
+
+- Testing was completed manually and with automated testing using Django's built in testing framework.
+
+### Manual Testing
+
+| **TEST**                      | **ACTION**                                                                                                                                                                                       | **EXPECTATION**                                                                                | **RESULT**              |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- | ----------------------- |
+| User Registration             | User registration was tested by creating a new user account and checking that the user can access the user profile.                                   | User can access user profile after successful registration                                                                                                                       | Works as expected       |
+| User Login                    | User login was tested by logging in with a valid user account and checking that the user can access the user profile.                                                                   | User can access user profile after successful login                                     | Works as expected       |
+| Navigation                    | Navigation was tested by clicking the nav links and checking that the user was redirected to the correct view.                                                       | User is redirected to the correct view after clicking the nav link                                                                                                                 | Works as expected       |
+
+### Automated Testing
+
+- I tested some of my views but due to time constraints i was not able to test all of them. I would like to add more tests in the future.
+
+| **TEST**             | **ACTION**                                    | **EXPECTATION**                                                                                      | **RESULT** |
+| -------------------- | --------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------- |
+| Home View            | GET request to home page                      | Status code is 200 and correct template is used                                                      | Passed     |
+| Register View - GET  | GET request to register page                  | Status code is 200                                                                                   | Passed     |
+| Register View - POST | POST request to register with new user data   | User count increases by 1 and redirects to user dashboard                                            | Passed     |
+| No Access View       | GET request to no access page                 | Status code is 200 and correct template is used                                                      | Passed     |
+
+
+### CI Python Linter Validation Results
+
+All Python files were validated using CI linter. 
+![CI Python Linter Validation Results](static/img/readme/cilinter.png)
+
+### CSS Validation Results
+![CSS Validation Results](static/img/readme/cssvalidate.png)
+
+### HTML Validation Results
+- Each pages source code was placed into the W3C Markup Validation Service. All pages passed.
+![HTML Validation Results](static/img/readme/.png)
+
+### Google Lighthouse Results
+![Google Lighthouse Results](static/img/readme/.png)
+
+### Responsiveness Testing
+- The app was tested on a range of devices and browsers to ensure compatibility and responsiveness.
+
+
+## Bugs
+<a name="bugs"></a>
+
+
+## Deployment
+<a name="deployment"></a>
+
+### Heroku Deployment
+1. Create a Heroku account by going to https://signup.heroku.com/
+2. Create a new app by clicking the "New" button in the top right corner and then click "Create new app".
+3. Enter a name for the app and select the region closest to you.
+4. Click the "Create app" button.
+5. Select "settings" from the top menu.
+6. Click the "Reveal Config Vars" button.
+7. Enter the following environment variables with your values:
+  - SECRET_KEY
+  - DATABASE_URL
+8. Click the "Deploy" tab from the top menu.
+9. Click the "Connect to GitHub" button.
+10. Search for your repository and click the "Connect" button.
+11. Click the "Enable Automatic Deploys" button.
+12. Click the "Deploy Branch" button.
+13. Click the "View" button to launch the app.
+
+
+### Local Deployment
+1. Clone the repository by clicking the "Clone or download" button in github.
+2. In your IDE open a new terminal.
+3. Change the current working directory to the location where you want the cloned directory to be made.
+4. Type git clone, and then paste the URL you copied in Step 2.
+5. Press Enter. Your local clone will be created.
+6. Create a virtual environment by typing python -m venv venv in the terminal.
+7. Activate the virtual environment by typing venv\bin\activate in the terminal.
+8. Install the requirements by typing pip install -r requirements.txt in the terminal.
+9. Create a .env file in the root directory and add the following environment variables:
+  - os.environ.setdefault("DATABASE_URL", "xxxxxxxxx")
+  - os.environ.setdefault("SECRET_KEY", "xxxxxxxxxx")
+  - os.environ.setdefault("DEBUG", "False || True")
+10. Migrate the database by typing python manage.py makemigrations and then python manage.py migrate in the terminal.
+11. Create a superuser by typing python manage.py createsuperuser in the terminal.
+12. Run the app by typing python manage.py runserver in the terminal.
+
+
+## Credits
+<a name="credits"></a>
+
+I used the following resources to help me complete this project.
+
+- Code Institue Material
