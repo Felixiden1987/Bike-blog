@@ -234,6 +234,9 @@ Github projects was used for the agile development of this project. The purpose 
 All Python files were validated using CI linter. 
 ![CI Python Linter Validation Results](static/img/readme/cilinter.png)
 
+### JavaScript Validation Results
+![JavaScript Validation Results](static/img/readme/jshint.png)
+
 ### CSS Validation Results
 ![CSS Validation Results](static/img/readme/cssvalidate.png)
 
